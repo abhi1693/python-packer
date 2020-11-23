@@ -1,0 +1,4 @@
+coverage
+nose
+nose-cov
+testtools
