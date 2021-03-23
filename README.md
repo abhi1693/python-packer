@@ -18,7 +18,7 @@ You must have Packer installed prior to using this client though as installer cl
  pip install python-packer
 
  # or, for dev:
- pip install https://github.com/nir0s/python-packer/archive/master.tar.gz
+ pip install https://github.com/abhi1693/python-packer/archive/master.tar.gz
 ```
 
 ## Usage Examples
@@ -177,7 +177,7 @@ Additionally, to verify that all errors return with as much info as possible, er
 Please contribute. Currently tests are not really developed.
 
 ```shell
-git clone git@github.com:nir0s/python-packer.git
+git clone git@github.com:abhi1693/python-packer.git
 cd python-packer
 pip install tox
 tox
