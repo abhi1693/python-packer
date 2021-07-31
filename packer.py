@@ -50,20 +50,26 @@ class Packer(object):
 
         return self.packer_cmd()
 
-    def build(self, parallel=True, debug=False, force=False, machine_readable=False):
+    def build(self, parallel=True, debug=False, force=False, machine_readable=False, color=False, on_error="cleanup", timestamp_ui=False):
         """Executes a `packer build`
 
         :param bool parallel: Run builders in parallel
         :param bool debug: Run in debug mode
         :param bool force: Force artifact output even if exists
         :param bool machine_readable: Make output machine-readable
+        :param bool color: Enable color output
+        :param str on_error: If the build fails do: clean up (default), abort, ask, or run-cleanup-provisioner
+        :param bool timestamp_ui: Enable prefixing of each ui output with an RFC3339 timestamp
         """
         self.packer_cmd = self.packer.build
 
-        self._add_opt('-parallel-builds={}'.format(os.cpu_count()) if parallel else 1)
+        self._add_opt('-parallel-builds={}'.format(os.cpu_count()) if parallel else None)
         self._add_opt('-debug' if debug else None)
         self._add_opt('-force' if force else None)
         self._add_opt('-machine-readable' if machine_readable else None)
+        self._add_opt('-color={}'.format(True if color else False))
+        self._add_opt('-on-error={}'.format(on_error))
+        self._add_opt('-timestamp-ui' if timestamp_ui else None)
         self._append_base_arguments()
         self._add_opt(self.template)
 
