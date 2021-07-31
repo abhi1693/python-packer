@@ -38,15 +38,16 @@ class Packer(object):
         self.packer = sh.Command(exec_path)
         self.packer = self.packer.bake(**kwargs)
 
-    def init(self, upgrade=False):
+    def init(self, config_file, upgrade=False):
         """Executes a `packer init`
 
+        :param str config_file: Path to the configuration file
         :param bool upgrade: Updates plugins to the latest version
         """
         self.packer_cmd = self.packer.init
 
         self._add_opt('-upgrade' if upgrade else None)
-        self._add_opt(self.template)
+        self._add_opt(config_file)
 
         return self.packer_cmd()
 
