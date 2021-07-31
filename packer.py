@@ -38,6 +38,18 @@ class Packer(object):
         self.packer = sh.Command(exec_path)
         self.packer = self.packer.bake(**kwargs)
 
+    def init(self, upgrade=False):
+        """Executes a `packer init`
+
+        :param bool upgrade: Updates plugins to the latest version
+        """
+        self.packer_cmd = self.packer.init
+
+        self._add_opt('-upgrade' if upgrade else None)
+        self._add_opt(self.template)
+
+        return self.packer_cmd()
+
     def build(self, parallel=True, debug=False, force=False, machine_readable=False):
         """Executes a `packer build`
 
@@ -243,11 +255,3 @@ class Installer(object):
 
     def _verify_packer_installed(self, packer_path):
         return os.path.isfile(packer_path)
-
-
-class ValidationObject():
-    pass
-
-
-class PackerException(Exception):
-    pass
