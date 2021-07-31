@@ -15,7 +15,7 @@ The interface has been developed vs. Packer v1.7.4.
 You must have Packer installed prior to using this client though as installer class is provided to install packer for you.
 
 ```shell
-pip install https://github.com/abhi1693/python-packer/archive/master.tar.gz
+pip install git+https://github.com/abhi1693/python-packer@main
 ```
 
 ## Usage Examples
