@@ -38,8 +38,7 @@ class Packer(object):
         self.packer = sh.Command(exec_path)
         self.packer = self.packer.bake(**kwargs)
 
-    def build(self, parallel=True, debug=False, force=False,
-              machine_readable=False):
+    def build(self, parallel=True, debug=False, force=False, machine_readable=False):
         """Executes a `packer build`
 
         :param bool parallel: Run builders in parallel
@@ -49,7 +48,7 @@ class Packer(object):
         """
         self.packer_cmd = self.packer.build
 
-        self._add_opt('-parallel-builds={}'.format(os.cpu_count()) if parallel else None)
+        self._add_opt('-parallel-builds={}'.format(os.cpu_count()) if parallel else 1)
         self._add_opt('-debug' if debug else None)
         self._add_opt('-force' if force else None)
         self._add_opt('-machine-readable' if machine_readable else None)
@@ -112,7 +111,7 @@ class Packer(object):
         result = self.packer_cmd()
         if mrf:
             result.parsed_output = self._parse_inspection_output(
-                                                        result.stdout.decode())
+                result.stdout.decode())
         else:
             result.parsed_output = None
         return result
