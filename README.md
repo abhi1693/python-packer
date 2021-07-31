@@ -7,7 +7,7 @@ A Python interface for [packer.io](http://www.packer.io)
 
 ## Packer version
 
-The interface has been developed vs. Packer v0.7.5.
+The interface has been developed vs. Packer v1.7.4.
 
 
 ## Installation
@@ -15,10 +15,7 @@ The interface has been developed vs. Packer v0.7.5.
 You must have Packer installed prior to using this client though as installer class is provided to install packer for you.
 
 ```shell
- pip install python-packer
-
- # or, for dev:
- pip install https://github.com/abhi1693/python-packer/archive/master.tar.gz
+pip install https://github.com/abhi1693/python-packer/archive/master.tar.gz
 ```
 
 ## Usage Examples
@@ -28,14 +25,14 @@ You must have Packer installed prior to using this client though as installer cl
 ```python
 import packer
 
-packerfile = 'packer/tests/resources/packerfile.json'
+template = 'path/to/template'
 exc = []
 only = ['my_first_image', 'my_second_image']
 vars = {"variable1": "value1", "variable2": "value2"}
 var_file = 'path/to/var/file'
 packer_exec_path = '/usr/bin/packer'
 
-p = packer.Packer(packerfile, exc=exc, only=only, vars=vars,
+p = packer.Packer(template=template, exc=exc, only=only, vars=vars,
                   var_file=var_file, exec_path=packer_exec_path)
 p.build(parallel=True, debug=False, force=False)
 ```
@@ -46,8 +43,8 @@ p.build(parallel=True, debug=False, force=False)
 ```python
 ...
 
-p = packer.Packer(packerfile, ...)
-output_file = 'packer/tests/resources/packerfile_fixed.json'
+p = packer.Packer(template, ...)
+output_file = '/tmp/template_fixed.json'
 print(p.fix(output_file))
 ```
 
@@ -61,14 +58,15 @@ A `-machine-readable` (mrf) argument is provided.
 If the `mrf` argument is set to `True`, the output will be parsed and an object containing the parsed output will be exposed as a dictionary containing the components:
 
 ```python
-...
+import packer
 
-p = packer.Packer(packerfile, ...)
+p = packer.Packer(template, ...)
 result = p.inspect(mrf=True)
 print(result.parsed_output)
 # print(result.stdout) can also be used here
+```
 
-# output:
+```json
 "variables": [
   {
     "name": "aws_access_key",
@@ -97,7 +95,7 @@ If the `mrf` argument is set to `False`, the output will not be parsed but rathe
 ```python
 ...
 
-p = packer.Packer(packerfile, ...)
+p = packer.Packer(template, ...)
 result = p.inspect(mrf=True)
 print(result.stdout)
 
@@ -127,7 +125,7 @@ You must be logged into Atlas to use the `push` function:
 ```python
 ...
 
-p = packer.Packer(packerfile, ...)
+p = packer.Packer(template, ...)
 atlas_token = 'oi21mok3mwqtk31om51o2joj213m1oo1i23n1o2'
 p.push(create=True, token=atlas_token)
 ```
@@ -137,7 +135,7 @@ p.push(create=True, token=atlas_token)
 ```python
 ...
 
-p = packer.Packer(packerfile, ...)
+p = packer.Packer(template, ...)
 p.validate(syntax_only=False)
 ```
 
@@ -146,7 +144,7 @@ p.validate(syntax_only=False)
 ```python
 ...
 
-p = packer.Packer(packerfile, ...)
+p = packer.Packer(template, ...)
 print(p.version())
 ```
 
@@ -157,7 +155,7 @@ This installs packer to `packer_path` using the `installer_path` and verifies th
 ```python
 
 packer_path = '/usr/bin/'
-installer_path = 'Downloads/packer_0.7.5_linux_amd64.zip'
+installer_path = 'Downloads/packer_1.7.4_linux_amd64.zip'
 
 p = packer.Installer(packer_path, installer_path)
 p.install()
@@ -174,7 +172,7 @@ Additionally, to verify that all errors return with as much info as possible, er
 
 ## Testing
 
-Please contribute. Currently tests are not really developed.
+Tests have not been developed yet.
 
 ```shell
 git clone git@github.com:abhi1693/python-packer.git
