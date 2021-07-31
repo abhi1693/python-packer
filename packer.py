@@ -10,22 +10,19 @@ class Packer(object):
     """A packer client
     """
 
-    def __init__(self, packerfile, exc=None, only=None, vars=None,
+    def __init__(self, template, exc=None, only=None, vars=None,
                  var_file=None, exec_path=DEFAULT_PACKER_PATH, out_iter=None,
                  err_iter=None):
         """
-        :param string packerfile: Path to Packer template file
+        :param string template: Path to Packer template file
         :param list exc: List of builders to exclude
         :param list only: List of builders to include
         :param dict vars: key=value pairs of template variables
         :param string var_file: Path to variables file
         :param string exec_path: Path to Packer executable
         """
-        self.packerfile = self._validate_argtype(packerfile, str)
+        self.template = self._validate_argtype(template, str)
         self.var_file = var_file
-        if not os.path.isfile(self.packerfile):
-            raise OSError('packerfile not found at path: {0}'.format(
-                self.packerfile))
         self.exc = self._validate_argtype(exc or [], list)
         self.only = self._validate_argtype(only or [], list)
         self.vars = self._validate_argtype(vars or {}, dict)
@@ -57,7 +54,7 @@ class Packer(object):
         self._add_opt('-force' if force else None)
         self._add_opt('-machine-readable' if machine_readable else None)
         self._append_base_arguments()
-        self._add_opt(self.packerfile)
+        self._add_opt(self.template)
 
         return self.packer_cmd()
 
@@ -68,7 +65,7 @@ class Packer(object):
         """
         self.packer_cmd = self.packer.fix
 
-        self._add_opt(self.packerfile)
+        self._add_opt(self.template)
 
         result = self.packer_cmd()
         if to_file:
@@ -110,7 +107,7 @@ class Packer(object):
         self.packer_cmd = self.packer.inspect
 
         self._add_opt('-machine-readable' if mrf else None)
-        self._add_opt(self.packerfile)
+        self._add_opt(self.template)
 
         result = self.packer_cmd()
         if mrf:
@@ -129,7 +126,7 @@ class Packer(object):
 
         self._add_opt('-create=true' if create else None)
         self._add_opt('-tokn={0}'.format(token) if token else None)
-        self._add_opt(self.packerfile)
+        self._add_opt(self.template)
 
         return self.packer_cmd()
 
@@ -144,7 +141,7 @@ class Packer(object):
 
         self._add_opt('-syntax-only' if syntax_only else None)
         self._append_base_arguments()
-        self._add_opt(self.packerfile)
+        self._add_opt(self.template)
 
         # as sh raises an exception rather than return a value when execution
         # fails we create an object to return the exception and the validation
