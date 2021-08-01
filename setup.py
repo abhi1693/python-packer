@@ -13,7 +13,7 @@ def read(*parts):
 
 setup(
 	name='python-packer',
-	version='1.0.3',
+	version='1.0.4',
 	url='https://github.com/abhi1693/python-packer',
 	author='abhi1693',
 	author_email='desk.abhimanyu@gmail.com',

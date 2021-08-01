@@ -1,3 +1,4 @@
+from sh import tail
 import sh
 import os
 import json
@@ -31,6 +32,7 @@ class Packer(object):
         if out_iter is not None:
             kwargs["_out"] = out_iter
             kwargs["_out_bufsize"] = 1
+            self._out = out_iter
         if err_iter is not None:
             kwargs["_err"] = err_iter
             kwargs["_out_bufsize"] = 1
@@ -74,6 +76,10 @@ class Packer(object):
         self._append_base_arguments()
         self._add_opt(self.template)
 
+        def __process_output(line):
+            print(line)
+
+        p = tail("-f", self._out, _out=__process_output, _bg=True)
         return self.packer_cmd()
 
     def fix(self, to_file=None):
