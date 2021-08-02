@@ -5,11 +5,11 @@ on:
     paths-ignore:
       - '**/CODEOWNERS'
     branches:
-      - master
+      - main
 
 jobs:
   update:
-    runs-on: misc
+    runs-on: ubuntu-latest
     # only apply on unmerged pull requests
     if: github.event.pull_request.merged_by == ''
     steps:
