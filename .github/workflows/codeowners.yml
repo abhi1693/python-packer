@@ -1,0 +1,35 @@
+name: Codeowners
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**/CODEOWNERS'
+    branches:
+      - master
+
+jobs:
+  update:
+    runs-on: misc
+    # only apply on unmerged pull requests
+    if: github.event.pull_request.merged_by == ''
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v2.3.4
+      with:
+        # the fetch depth 0 (=all) is important
+        fetch-depth: 0
+    - name: update code owners
+      uses: gofunky/update-codeowners@v0.3.2
+      with:
+        distribution: 25
+        token: ${{ secrets.CODEOWNER_TOKEN }}
+
+    - name: check file
+      run: cat .github/CODEOWNERS
+
+    - name: Commit and push
+      uses: test-room-7/action-update-file@v1.4.0
+      with:
+        commit-msg: "[skip ci] Updated CODEOWNERS"
+        file-path: ".github/CODEOWNERS"
+        github-token: ${{ secrets.GITHUB_TOKEN }}
