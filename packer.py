@@ -3,9 +3,6 @@ import sh
 import os
 import json
 import zipfile
-import logging
-
-logger = logging.getLogger(__name__)
 
 DEFAULT_PACKER_PATH = 'packer'
 
@@ -80,7 +77,7 @@ class Packer(object):
         self._add_opt(self.template)
 
         def __process_output(line):
-            logger.info(line)
+            print(line)
 
         p = tail("-f", self._out, _out=__process_output, _bg=True)
         return self.packer_cmd()
