@@ -31,4 +31,3 @@ jobs:
           commit-msg: "[skip ci] Updated CHANGELOG.md"
           file-path: "CHANGELOG.md"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          branch: dev
