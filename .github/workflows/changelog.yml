@@ -1,0 +1,34 @@
+name: Changelog Generator
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    types: [closed]
+
+  release:
+    types: [published]
+
+  issues:
+    types: [closed, edited]
+
+jobs:
+  changelog:
+    name: "Changelog Generator"
+    runs-on: misc
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: "Generate changelog"
+        id: changelog
+        uses: charmixer/auto-changelog-action@v1.4
+        with:
+          exclude_labels: "skip ci,status: abandoned,type: duplicate,type: question,type: wontfix"
+          token: ${{ secrets.GITHUB_TOKEN }}          
+      - name: Commit and push
+        uses: test-room-7/action-update-file@v1.4.0
+        with:
+          commit-msg: "[skip ci] Updated CHANGELOG.md"
+          file-path: "CHANGELOG.md"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          branch: dev
