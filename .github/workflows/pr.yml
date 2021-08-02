@@ -6,7 +6,7 @@ on:
 
 jobs:
   assign-author:
-    runs-on: linux
+    runs-on: ubuntu-latest
     steps:
       - name: Assign PR to creator
         uses: toshimaru/auto-author-assign@v1.3.5
