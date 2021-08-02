@@ -1,0 +1,14 @@
+name: Assign PR to creator
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  assign-author:
+    runs-on: linux
+    steps:
+      - name: Assign PR to creator
+        uses: toshimaru/auto-author-assign@v1.3.5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
