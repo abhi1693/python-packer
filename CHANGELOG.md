@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.7](https://github.com/abhi1693/python-packer/tree/v1.0.7) (2022-01-09)
+
+[Full Changelog](https://github.com/abhi1693/python-packer/compare/v1.0.6...v1.0.7)
+
+**Merged pull requests:**
+
+- Bump test-room-7/action-update-file from 1.5.0 to 1.6.0 [\#5](https://github.com/abhi1693/python-packer/pull/5) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump toshimaru/auto-author-assign from 1.3.7 to 1.4.0 [\#4](https://github.com/abhi1693/python-packer/pull/4) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.6](https://github.com/abhi1693/python-packer/tree/v1.0.6) (2021-09-02)
 
 [Full Changelog](https://github.com/abhi1693/python-packer/compare/v1.0.5...v1.0.6)
