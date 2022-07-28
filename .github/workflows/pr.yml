@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Assign PR to creator
-        uses: toshimaru/auto-author-assign@v1.5.0
+        uses: toshimaru/auto-author-assign@v1.6.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
