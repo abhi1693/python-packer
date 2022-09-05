@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/abhi1693/python-packer/tree/HEAD)
+
+[Full Changelog](https://github.com/abhi1693/python-packer/compare/v1.0.7...HEAD)
+
+**Fixed bugs:**
+
+- tox fails due to python3.6 missing [\#15](https://github.com/abhi1693/python-packer/issues/15)
+
 ## [v1.0.7](https://github.com/abhi1693/python-packer/tree/v1.0.7) (2022-01-09)
 
 [Full Changelog](https://github.com/abhi1693/python-packer/compare/v1.0.6...v1.0.7)
