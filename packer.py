@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import stat
 import zipfile
 
@@ -205,11 +206,11 @@ class Packer(object):
         """Returns Packer's version number (`packer version`)
 
         As of v0.7.5, the format shows when running `packer version`
-        is: Packer vX.Y.Z. This method will only returns the number, without
-        the `packer v` prefix so that you don't have to parse the version
+        is: Packer vX.Y.Z. This method will only return the number, without
+        the `Packer v` prefix so that you don't have to parse the version
         yourself.
         """
-        return self.packer.version().split('v')[1].rstrip('\n')
+        return re.match('Packer v[0-9].[0-9].[0-9]', str(self.packer.version())).group().split()[-1].strip('v')
 
     def _add_opt(self, option):
         if option:
