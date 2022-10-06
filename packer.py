@@ -1,9 +1,11 @@
-import sh
-import os
 import json
+import os
+import stat
 import zipfile
 
-DEFAULT_PACKER_PATH = 'packer'
+import sh
+
+DEFAULT_PACKER_PATH = '/usr/local/bin/packer'
 
 
 class ValidationObject:
@@ -282,6 +284,8 @@ class Installer(object):
                                   'Executable could not be found under: '
                                   '{0}'.format(exec_path))
         else:
+            # Fix executable permissions
+            os.chmod(exec_path, stat.S_IEXEC)
             return exec_path
 
     def _verify_packer_installed(self, packer_path):
