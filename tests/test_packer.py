@@ -10,13 +10,15 @@ class TestPacker(unittest.TestCase):
     def setUpClass(self):
         self.packer.init('tests')
 
+    @unittest.skip("Already used for setup")
     def test_init(self):
       self.packer.init('tests')
-      self.assertEqual("TODO", "FIXME")
+      pass
 
     def test_build(self):
-      self.packer.build(parallel=False, debug=True, force=False)
-      self.assertEqual("TODO", "FIXME")
+      build_output = self.packer.build(parallel=False, debug=True, force=False)
+      build_success = build_output.find("artifacts of successful builds")
+      self.assertGreater(build_success, 0)
 
     def test_fix(self):
       self.assertEqual("TODO", "FIXME")
