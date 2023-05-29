@@ -28,7 +28,7 @@ jobs:
       run: cat .github/CODEOWNERS
 
     - name: Commit and push
-      uses: test-room-7/action-update-file@v1.6.0
+      uses: test-room-7/action-update-file@v1.8.0
       with:
         commit-msg: "[skip ci] Updated CODEOWNERS"
         file-path: ".github/CODEOWNERS"
